@@ -1,10 +1,24 @@
 import { Request, Response } from "express";
 import { realizarCalculos } from "../services/cotizacionService";
 
-export const calcularCotizacion = (req: Request, res: Response) => {
+export const calcularCotizacion = (
+    req: Request,
+    res: Response
+) => {
 
-    const resultado = realizarCalculos(req.body);
+    try {
 
-    res.json(resultado);
+        const resultado = realizarCalculos(req.body);
+
+        return res.status(200).json(resultado);
+
+    } catch (error) {
+
+        return res.status(400).json({
+            mensaje: "Error al procesar la cotización.",
+            detalle: error
+        });
+
+    }
 
 };
