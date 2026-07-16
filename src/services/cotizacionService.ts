@@ -1,4 +1,6 @@
-export function realizarCalculos(data: any) {
+import { Cotizacion } from "../models/interfaces";
+
+export function realizarCalculos(data: Cotizacion) {
 
     let subtotal = 0;
     let utilidadTotal = 0;
