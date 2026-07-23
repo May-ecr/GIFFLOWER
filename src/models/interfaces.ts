@@ -13,3 +13,18 @@ export interface Cotizacion {
     descuento: number;
     paquetes: Paquete[];
 }
+
+export interface PaqueteCalculado {
+    nombre: string;
+    costoPaquete: number;
+    precioVenta: number;
+    utilidad: number;
+}
+
+export interface ResultadoCotizacion {
+    subtotal: number;
+    descuento: number;
+    total: number;
+    utilidadTotal: number;
+    paquetes: PaqueteCalculado[];
+}

@@ -1,18 +1,16 @@
-import { Cotizacion } from "../models/interfaces";
+import {Cotizacion, Paquete, Flor, ResultadoCotizacion} from "../models/interfaces";
 
-export function realizarCalculos(data: Cotizacion) {
+export function realizarCalculos(data: Cotizacion): ResultadoCotizacion {
 
     let subtotal = 0;
     let utilidadTotal = 0;
 
-    const paquetes = data.paquetes.map((paquete: any) => {
+    const paquetes = data.paquetes.map((paquete: Paquete) => {
 
         let costoPaquete = 0;
 
-        paquete.flores.forEach((flor: any) => {
-
+        paquete.flores.forEach((flor: Flor) => {
             const costoFlor = flor.cantidad * flor.costoUnitario;
-
             costoPaquete += costoFlor;
 
         });
