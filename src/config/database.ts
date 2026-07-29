@@ -12,7 +12,9 @@ dns.setServers([
 export const conectarBase = async (): Promise<void> => {
     try{
         //console.log("URI:", process.env.MONGO_URI);
-        await mongoose.connect(process.env.MONGO_URI as string);
+        const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/gifflower";
+        //await mongoose.connect(process.env.MONGO_URI as string);
+        await mongoose.connect(mongoUri);
         console.log("MongoDB conectado correctamente");
     }catch(error){
         console.error("error al conectar MongoDB");
