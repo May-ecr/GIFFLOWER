@@ -1,0 +1,204 @@
+/* Variables de Color (Rosa y Blanco) */
+:root {
+    --bg-color: #fff0f5;           /* Lavender Blush / Rosa muy clarito */
+    --card-bg: #ffffff;            /* Blanco puro */
+    --primary-pink: #f472b6;       /* Rosa suave */
+    --primary-pink-hover: #db2777; /* Rosa intenso para hover */
+    --secondary-pink: #fbcfe8;     /* Rosa muy pastel */
+    --secondary-pink-hover: #f472b6;
+    --text-color: #4a4a4a;         /* Gris oscuro legibilidad */
+    --border-color: #fce7f3;
+    --shadow: 0 10px 25px -5px rgba(244, 114, 182, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    padding-bottom: 40px;
+}
+
+/* Header */
+.navbar {
+    background-color: var(--card-bg);
+    padding: 20px 40px;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logo h1 {
+    color: #be185d;
+    font-size: 1.8rem;
+}
+
+.icon {
+    font-size: 2rem;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: #9d174d;
+    margin-top: 4px;
+}
+
+/* Contenedor Principal */
+.container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Tarjetas */
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    color: #be185d;
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    color: #db2777;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.card h4 {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 15px 0 10px;
+}
+
+/* Formulario e Inputs */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #831843;
+}
+
+input {
+    padding: 11px 10px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+input:focus {
+    border-color: var(--primary-pink);
+    box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.2);
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.form-row .form-group,
+.form-row input {
+    flex: 1;
+}
+
+.divider {
+    height: 1px;
+    background-color: var(--border-color);
+    margin: 20px 0;
+}
+
+/* Botones con Efectos Hover */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-pink);
+    color: white;
+    padding: 14px 20px;
+    font-size: 1rem;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-pink-hover);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-pink);
+    color: #9d174d;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-pink-hover);
+    color: white;
+}
+
+/* Tarjeta de Resultados */
+.result-card {
+    background: #fdf2f8;
+    border: 2px dashed var(--primary-pink);
+}
+
+.summary-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+}
+
+.detail-item.total {
+    font-size: 1.2rem;
+    color: #be185d;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+
+.detail-item.profit {
+    color: #047857;
+}
+
+.hidden {
+    display: none;
+}

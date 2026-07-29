@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GifFlower - Cotizador de Arreglos Floral</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="navbar">
+        <div class="logo">
+            <span class="icon">🌸</span>
+            <h1>GifFlower</h1>
+        </div>
+        <p class="tagline">Cotizador de Arreglos & Eventos</p>
+    </header>
+
+    <main class="container">
+        <!-- Formulario de Cotización -->
+        <section class="card">
+            <h2>✨ Generar Nueva Cotización</h2>
+            <form id="cotizador-form">
+                
+                <div class="form-group">
+                    <label for="descuento">Descuento General (%)</label>
+                    <input type="number" id="descuento" value="0" min="0" max="100" required>
+                </div>
+
+                <div class="divider"></div>
+
+                <h3>📦 Paquete Floral</h3>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="paqueteNombre">Nombre del Paquete</label>
+                        <input type="text" id="paqueteNombre" placeholder="Ej: Arreglo Primavera" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="precioVenta">Precio de Venta ($)</label>
+                        <input type="number" id="precioVenta" placeholder="500" min="0" step="0.01" required>
+                    </div>
+                </div>
+
+                <h4>🌺 Flores del Paquete</h4>
+                <div id="flores-container">
+                    <div class="flor-item form-row">
+                        <input type="text" class="flor-nombre" placeholder="Flor (Ej: Rosa)" required>
+                        <input type="number" class="flor-cantidad" placeholder="Cant." min="1" required>
+                        <input type="number" class="flor-costo" placeholder="Costo C/U ($)" min="0" step="0.01" required>
+                    </div>
+                </div>
+
+                <button type="button" id="btn-add-flor" class="btn-secondary">
+                    ➕ Agregar otra flor
+                </button>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">
+                        💐 Calcular y Guardar Cotización
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Tarjeta para Mostrar Resultados -->
+        <section class="card result-card hidden" id="result-card">
+            <h2>📋 Resumen de la Cotización</h2>
+            <div class="summary-details">
+                <div class="detail-item">
+                    <span>Subtotal:</span>
+                    <strong id="res-subtotal">$0.00</strong>
+                </div>
+                <div class="detail-item">
+                    <span>Descuento:</span>
+                    <strong id="res-descuento">$0.00</strong>
+                </div>
+                <div class="detail-item total">
+                    <span>Total Final:</span>
+                    <strong id="res-total">$0.00</strong>
+                </div>
+                <div class="detail-item profit">
+                    <span>Utilidad Estimada:</span>
+                    <strong id="res-utilidad">$0.00</strong>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
