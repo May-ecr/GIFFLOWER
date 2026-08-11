@@ -1,3 +1,5 @@
+let ultimaCotizacion = null;
+
 // Agregar dinámicamente campos para más flores
 document.getElementById('btn-add-flor').addEventListener('click', () => {
     const container = document.getElementById('flores-container');
@@ -47,6 +49,8 @@ document.getElementById('cotizador-form').addEventListener('submit', async (e) =
 
         const data = await response.json();
 
+        ultimaCotizacion = payload;
+
         // 4. Desplegar los resultados devueltos por el backend
         document.getElementById('res-subtotal').textContent = `$${data.subtotal.toFixed(2)}`;
         document.getElementById('res-descuento').textContent = `$${data.descuento.toFixed(2)}`;
@@ -59,4 +63,43 @@ document.getElementById('cotizador-form').addEventListener('submit', async (e) =
         alert(' Hubo un problema al procesar la cotización.');
         console.error(error);
     }
+});
+
+
+//aqui sucede la magia del excel muchachos:
+document.getElementById('btn-descargar-excel').addEventListener('click', async () => {
+
+    if (!ultimaCotizacion) {
+        alert('Primero debes calcular una cotización.');
+        return;
+    }
+
+    try {
+        const response = await fetch('http://localhost:3000/cotizacion/excel', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(ultimaCotizacion)
+        });
+
+        if (!response.ok) {
+            throw new Error('No se pudo generar el Excel');
+        }
+
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const enlace = document.createElement('a');
+        enlace.href = url;
+        enlace.download = 'cotizacion.xlsx';
+        document.body.appendChild(enlace);
+        enlace.click();
+        enlace.remove();
+        window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+        console.error(error);
+        alert('Hubo un problema al descargar el Excel.');
+    }
+
 });
