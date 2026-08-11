@@ -3,6 +3,7 @@ import cors from "cors";
 import cotizacionRoutes from "./routes/cotizacionRoutes";
 import historialRoutes from "./routes/historialRoutes";
 import excelRoutes from "./routes/excelRoute";
+import florRoutes from "./routes/florRoutes"
 
 const app = express();
 
@@ -16,5 +17,6 @@ app.use(express.json());
 app.use("/cotizacion", cotizacionRoutes);
 app.use("/historial", historialRoutes);
 app.use("/cotizacion/excel", excelRoutes);
+app.use("/flores", florRoutes)
 
 export default app;

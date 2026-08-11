@@ -104,16 +104,17 @@ body {
     color: #831843;
 }
 
-input {
+input, select {
     padding: 11px 10px;
     border: 2px solid var(--border-color);
     border-radius: 10px;
     font-size: 0.95rem;
     outline: none;
     transition: all 0.3s ease;
+    background-color: white;
 }
 
-input:focus {
+input:focus, select:focus {
     border-color: var(--primary-pink);
     box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.2);
 }
@@ -125,7 +126,7 @@ input:focus {
 }
 
 .form-row .form-group,
-.form-row input {
+.form-row input, .form-row select {
     flex: 1;
 }
 

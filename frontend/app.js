@@ -1,17 +1,97 @@
 let ultimaCotizacion = null;
 
+//guardar las flores cargadas desde la base de datos 
+let floresDisponibles = [];
+
+async function cargarFlores() {
+    try {
+        const response = await fetch('http://localhost:3000/flores');
+
+        if (!response.ok) {
+            throw new Error('No se pudieron obtener las flores');
+        }
+
+        floresDisponibles = await response.json();
+
+        document.querySelectorAll('.flor-nombre').forEach(select => {
+            llenarSelectFlores(select);
+            configurarPrecioFlor(select);
+        });
+
+    } catch (error) {
+        console.error('Error al cargar las flores:', error);
+    }
+}
+
+function llenarSelectFlores(select) {
+    select.innerHTML = '<option value="">Selecciona una flor</option>';
+
+    floresDisponibles.forEach(flor => {
+        const option = document.createElement('option');
+
+        option.value = flor.nombre;
+        option.textContent = flor.nombre;
+        option.dataset.costo = flor.costoUnitario;
+
+        select.appendChild(option);
+    });
+}
+
+function configurarPrecioFlor(select) {
+    select.addEventListener('change', () => {
+        const fila = select.closest('.flor-item');
+        const campoCosto = fila.querySelector('.flor-costo');
+
+        if (select.value === '') {
+            campoCosto.value = '';
+            return;
+        }
+
+        const opcionSeleccionada =
+            select.options[select.selectedIndex];
+
+        campoCosto.value =
+            opcionSeleccionada.dataset.costo;
+    });
+}
+
 // Agregar dinámicamente campos para más flores
 document.getElementById('btn-add-flor').addEventListener('click', () => {
     const container = document.getElementById('flores-container');
     const newRow = document.createElement('div');
     newRow.className = 'flor-item form-row';
     newRow.innerHTML = `
-        <input type="text" class="flor-nombre" placeholder="Flor (Ej: Tulipán)" required>
-        <input type="number" class="flor-cantidad" placeholder="Cant." min="1" required>
-        <input type="number" class="flor-costo" placeholder="Costo C/U ($)" min="0" step="0.01" required>
-    `;
+    <select class="flor-nombre" required>
+        <option value="">Selecciona una flor</option>
+    </select>
+
+    <input
+        type="number"
+        class="flor-cantidad"
+        placeholder="Cantidad"
+        min="1"
+        required
+    >
+
+    <input
+        type="number"
+        class="flor-costo"
+        placeholder="Precio C/U ($)"
+        min="0"
+        step="0.01"
+        required
+    >
+`;
     container.appendChild(newRow);
+
+    const nuevoSelect = newRow.querySelector('.flor-nombre');
+
+    llenarSelectFlores(nuevoSelect);
+
+    configurarPrecioFlor(nuevoSelect);
 });
+
+
 
 // Enviar formulario a tu API Express
 document.getElementById('cotizador-form').addEventListener('submit', async (e) => {
@@ -103,3 +183,4 @@ document.getElementById('btn-descargar-excel').addEventListener('click', async (
     }
 
 });
+cargarFlores();

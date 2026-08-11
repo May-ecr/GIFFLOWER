@@ -44,9 +44,28 @@
                 <h4>🌺 Flores del Paquete</h4>
                 <div id="flores-container">
                     <div class="flor-item form-row">
-                        <input type="text" class="flor-nombre" placeholder="Flor (Ej: Rosa)" required>
-                        <input type="number" class="flor-cantidad" placeholder="Cant." min="1" required>
-                        <input type="number" class="flor-costo" placeholder="Costo C/U ($)" min="0" step="0.01" required>
+
+                        <select class="flor-nombre" required>
+                            <option value="">Selecciona una flor</option>
+                        </select>
+
+                        <input
+                            type="number"
+                            class="flor-cantidad"
+                            placeholder="Cantidad"
+                            min="1"
+                            required
+                        >
+
+                        <input
+                            type="number"
+                            class="flor-costo"
+                            placeholder="Precio C/U ($)"
+                            min="0"
+                            step="0.01"
+                            required
+                        >
+
                     </div>
                 </div>
 
