@@ -36,7 +36,11 @@ export function realizarCalculos(
             utilidad
         };
     });
-
+    if (data.descuento < 0 || data.descuento > 35) {
+        throw new Error(
+            "El descuento debe estar entre 0% y 35%"
+        );
+    }
     // El porcentaje de descuento lo decide el encargado
     const porcentajeDescuento = data.descuento || 0;
 
@@ -62,6 +66,7 @@ export function realizarCalculos(
         ventaFinal - costoTotal - flete;
 
     return {
+        cliente: data.cliente,
         costoTotal,
         ventaBruta,
         descuento,
