@@ -1,113 +1,578 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GifFlower - Cotizador de Arreglos Floral</title>
+
+    <title>GifFlower - Cotizador</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <header class="navbar">
-        <div class="logo">
-            <span class="icon">🌸</span>
-            <h1>GifFlower</h1>
-        </div>
-        <p class="tagline">Cotizador de Arreglos & Eventos</p>
-    </header>
+<header class="navbar">
 
-    <main class="container">
-        <!-- Formulario de Cotización -->
-        <section class="card">
-            <h2>✨ Generar Nueva Cotización</h2>
-            <form id="cotizador-form">
-                
-                <div class="form-group">
-                    <label for="descuento">Descuento General (%)</label>
-                    <input type="number" id="descuento" value="0" min="0" max="100" required>
+    <div class="logo">
+        <span class="icon">🌸</span>
+        <h1>GifFlower</h1>
+    </div>
+
+    <p class="tagline">
+        Cotizador de Arreglos & Eventos
+    </p>
+
+    <div class="navbar-actions">
+        <button
+            type="button"
+            id="btn-abrir-catalogo"
+            class="btn-catalogo"
+        >
+            🌺 Catálogo de flores
+        </button>
+</div>
+
+</header>
+
+
+
+<main class="container">
+
+    <!-- ============================= -->
+    <!-- FORMULARIO -->
+    <!-- ============================= -->
+
+    <section class="card" id="form-card">
+
+        <h2>✨ Generar Nueva Cotización</h2>
+
+        <form id="cotizador-form">
+
+            <!-- DESCUENTO -->
+
+            <div class="form-group">
+
+                <label for="descuento">
+                    Descuento General (%)
+                </label>
+
+                <input
+                    type="number"
+                    id="descuento"
+                    value="0"
+                    min="0"
+                    max="100"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <div class="divider"></div>
+
+
+            <!-- PAQUETES -->
+
+            <div class="section-header">
+
+                <div>
+                    <h3>📦 Paquetes</h3>
+
+                    <p class="section-description">
+                        Ingresa cada paquete, su cantidad,
+                        precio de compra y precio de lista.
+                    </p>
                 </div>
 
-                <div class="divider"></div>
+            </div>
 
-                <h3>📦 Paquete Floral</h3>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="paqueteNombre">Nombre del Paquete</label>
-                        <input type="text" id="paqueteNombre" placeholder="Ej: Arreglo Primavera" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="precioVenta">Precio de Venta ($)</label>
-                        <input type="number" id="precioVenta" placeholder="500" min="0" step="0.01" required>
-                    </div>
-                </div>
 
-                <h4>🌺 Flores del Paquete</h4>
-                <div id="flores-container">
-                    <div class="flor-item form-row">
+            <!-- AQUÍ JS INSERTA LAS FILAS -->
 
-                        <select class="flor-nombre" required>
-                            <option value="">Selecciona una flor</option>
-                        </select>
+            <div id="paquetes-container"></div>
 
-                        <input
-                            type="number"
-                            class="flor-cantidad"
-                            placeholder="Cantidad"
-                            min="1"
-                            required
-                        >
 
-                        <input
-                            type="number"
-                            class="flor-costo"
-                            placeholder="Precio C/U ($)"
-                            min="0"
-                            step="0.01"
-                            required
-                        >
+            <!-- AGREGAR -->
 
-                    </div>
-                </div>
+            <button
+                type="button"
+                id="btn-add-paquete"
+                class="btn-secondary"
+            >
+                ➕ Agregar otro paquete
+            </button>
 
-                <button type="button" id="btn-add-flor" class="btn-secondary">
-                    ➕ Agregar otra flor
+
+            <!-- CALCULAR -->
+
+            <div class="form-actions">
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    💐 Calcular Cotización
                 </button>
 
-                <div class="form-actions">
-                    <button type="submit" class="btn-primary">
-                        💐 Calcular y Guardar Cotización
-                    </button>
-                </div>
-            </form>
-        </section>
-
-        <!-- Tarjeta para Mostrar Resultados -->
-        <section class="card result-card hidden" id="result-card">
-            <h2>📋 Resumen de la Cotización</h2>
-            <div class="summary-details">
-                <div class="detail-item">
-                    <span>Subtotal:</span>
-                    <strong id="res-subtotal">$0.00</strong>
-                </div>
-                <div class="detail-item">
-                    <span>Descuento:</span>
-                    <strong id="res-descuento">$0.00</strong>
-                </div>
-                <div class="detail-item total">
-                    <span>Total Final:</span>
-                    <strong id="res-total">$0.00</strong>
-                </div>
-                <div class="detail-item profit">
-                    <span>Utilidad Estimada:</span>
-                    <strong id="res-utilidad">$0.00</strong>
-                </div>
             </div>
-            <button type="button" id="btn-descargar-excel" class="btn-primary">
-        📊 Descargar cotización en Excel
-            </button>
-        </section>
-    </main>
 
-    <script src="app.js"></script>
+        </form>
+
+    </section>
+
+
+    <!-- ============================= -->
+    <!-- RESULTADOS -->
+    <!-- ============================= -->
+
+    <section
+        class="card result-card hidden"
+        id="result-card"
+    >
+
+        <h2>📋 Resumen de la Cotización</h2>
+
+
+        <div class="summary-details">
+
+
+            <!-- COSTO -->
+
+            <div class="detail-item">
+
+                <span>
+                    Costo de mercancía:
+                </span>
+
+                <strong id="res-costo">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <!-- VENTA BRUTA -->
+
+            <div class="detail-item">
+
+                <span>
+                    Venta antes de descuento:
+                </span>
+
+                <strong id="res-venta-bruta">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <!-- DESCUENTO -->
+
+            <div class="detail-item">
+
+                <span>
+                    Descuento:
+                </span>
+
+                <strong id="res-descuento">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <!-- VENTA FINAL -->
+
+            <div class="detail-item total">
+
+                <span>
+                    Total que paga el cliente:
+                </span>
+
+                <strong id="res-venta-final">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <!-- FLETE -->
+
+            <div class="detail-item">
+
+                <span>
+                    Flete:
+                </span>
+
+                <strong id="res-flete">
+                    $0.00
+                </strong>
+
+            </div>
+
+
+            <!-- UTILIDAD -->
+
+            <div class="detail-item profit">
+
+                <span>
+                    Utilidad real:
+                </span>
+
+                <strong id="res-utilidad">
+                    $0.00
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOTONES RESULTADO -->
+
+        <div class="result-actions">
+
+            <button
+                type="button"
+                id="btn-descargar-excel"
+                class="btn-primary"
+            >
+                📊 Descargar cotización en Excel
+            </button>
+
+
+            <button
+                type="button"
+                id="btn-nueva-cotizacion"
+                class="btn-secondary"
+            >
+                ➕ Nueva cotización
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+<!-- ==================================================
+     MODAL CATÁLOGO DE FLORES
+================================================== -->
+
+<div id="catalogo-modal" class="modal hidden">
+
+    <div
+        class="modal-overlay"
+        id="catalogo-overlay"
+    ></div>
+
+
+    <div class="modal-content catalogo-modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>🌺 Catálogo de flores</h2>
+
+                <p>
+                    Consulta, agrega y actualiza las flores registradas.
+                </p>
+            </div>
+
+
+            <div class="catalogo-header-actions">
+
+                <button
+                    type="button"
+                    id="btn-nueva-flor"
+                    class="btn-secondary"
+                >
+                    ➕ Nueva flor
+                </button>
+
+
+                <button
+                    type="button"
+                    id="btn-cerrar-catalogo"
+                    class="modal-close"
+                >
+                    ✕
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="catalogo-cargando"
+            class="catalogo-cargando hidden"
+        >
+            Cargando flores...
+        </div>
+
+
+        <div class="catalogo-table-container">
+
+            <table class="catalogo-table">
+
+                <thead>
+
+                    <tr>
+                        <th>Flor</th>
+                        <th>Precio compra</th>
+                        <th>Precio lista</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="catalogo-body">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     MODAL EDITAR FLOR
+================================================== -->
+
+<div id="editar-flor-modal" class="modal hidden">
+
+    <div
+        class="modal-overlay"
+        id="editar-overlay"
+    ></div>
+
+
+    <div class="modal-content editar-modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>✏️ Editar flor</h2>
+
+                <p id="editar-flor-nombre">
+                    Flor
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="btn-cerrar-editar"
+                class="modal-close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <form id="editar-flor-form">
+
+            <input
+                type="hidden"
+                id="editar-flor-id"
+            >
+
+
+            <div class="form-group">
+
+                <label for="editar-precio">
+                    Precio de compra ($)
+                </label>
+
+                <input
+                    type="number"
+                    id="editar-precio"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="editar-precio-lista">
+                    Precio de lista ($)
+                </label>
+
+                <input
+                    type="number"
+                    id="editar-precio-lista"
+                    min="0"
+                    step="0.01"
+                    required
+                >
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="btn-cancelar-editar"
+                    class="btn-secondary"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    💾 Guardar cambios
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     MODAL NUEVA FLOR
+================================================== -->
+
+<div id="nueva-flor-modal" class="modal hidden">
+
+    <div
+        class="modal-overlay"
+        id="nueva-flor-overlay"
+    ></div>
+
+
+    <div class="modal-content editar-modal-content">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2>➕ Nueva flor</h2>
+
+                <p>
+                    Registra una nueva flor en el catálogo.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="btn-cerrar-nueva-flor"
+                class="modal-close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+
+        <form id="nueva-flor-form">
+
+            <div class="form-group">
+
+                <label for="nueva-flor-nombre">
+                    Nombre de la flor
+                </label>
+
+                <input
+                    type="text"
+                    id="nueva-flor-nombre"
+                    placeholder="Ej: Girasol"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="nueva-flor-precio">
+                    Precio de compra ($)
+                </label>
+
+                <input
+                    type="number"
+                    id="nueva-flor-precio"
+                    min="0"
+                    step="0.01"
+                    placeholder="Ej: 80"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="nueva-flor-precio-lista">
+                    Precio de lista ($)
+                </label>
+
+                <input
+                    type="number"
+                    id="nueva-flor-precio-lista"
+                    min="0"
+                    step="0.01"
+                    placeholder="Ej: 160"
+                    required
+                >
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="btn-cancelar-nueva-flor"
+                    class="btn-secondary"
+                >
+                    Cancelar
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="btn-primary"
+                >
+                    🌸 Guardar flor
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="app.js"></script>
+<script src="app.js"></script>
+
 </body>
 </html>

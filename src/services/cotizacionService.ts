@@ -1,56 +1,73 @@
-import {Cotizacion, Paquete, Flor, ResultadoCotizacion} from "../models/interfaces";
+import {
+    Cotizacion,
+    Paquete,
+    ResultadoCotizacion
+} from "../models/interfaces";
 
-export function realizarCalculos(data: Cotizacion): ResultadoCotizacion {
+export function realizarCalculos(
+    data: Cotizacion
+): ResultadoCotizacion {
 
-    let subtotal = 0;
-    let utilidadTotal = 0;
+    let costoTotal = 0;
+    let ventaBruta = 0;
 
     const paquetes = data.paquetes.map((paquete: Paquete) => {
 
-        let costoPaquete = 0;
+        // Lo que le cuesta a la florería
+        const costoPaquete =
+            paquete.cantidad * paquete.precioCompra;
 
-        paquete.flores.forEach((flor: Flor) => {
-            const costoFlor = flor.cantidad * flor.costoUnitario;
-            costoPaquete += costoFlor;
+        // Lo que pagaría el cliente
+        const ventaPaquete =
+            paquete.cantidad * paquete.precioLista;
 
-        });
+        // Utilidad individual antes de descuento/flete
+        const utilidad =
+            ventaPaquete - costoPaquete;
 
-        const utilidad = paquete.precioVenta - costoPaquete;
-
-        subtotal += costoPaquete;
-
-        utilidadTotal += utilidad;
+        costoTotal += costoPaquete;
+        ventaBruta += ventaPaquete;
 
         return {
-
             nombre: paquete.nombre,
-
+            cantidad: paquete.cantidad,
             costoPaquete,
-
-            precioVenta: paquete.precioVenta,
-
+            ventaPaquete,
             utilidad
-
         };
-
     });
 
-    const descuento = subtotal * (data.descuento / 100);
+    // El porcentaje de descuento lo decide el encargado
+    const porcentajeDescuento = data.descuento || 0;
 
-    const total = subtotal - descuento;
+    // El descuento se aplica sobre lo que pagaría el cliente
+    const descuento =
+        ventaBruta * (porcentajeDescuento / 100);
+
+    // Lo que realmente pagará el cliente
+    const ventaFinal =
+        ventaBruta - descuento;
+
+    /*
+     * Si posteriormente mandamos el flete desde el frontend,
+     * se utilizará ese valor.
+     *
+     * Mientras tanto se consideran $100.
+     */
+    const flete =
+        data.flete ?? 100;
+
+    // Ganancia real
+    const utilidadTotal =
+        ventaFinal - costoTotal - flete;
 
     return {
-
-        subtotal,
-
+        costoTotal,
+        ventaBruta,
         descuento,
-
-        total,
-
+        ventaFinal,
+        flete,
         utilidadTotal,
-
         paquetes
-
     };
-
 }

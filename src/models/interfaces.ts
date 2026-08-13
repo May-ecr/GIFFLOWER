@@ -1,30 +1,30 @@
-export interface Flor {
-    nombre: string;
-    cantidad: number;
-    costoUnitario: number;
-
-}
 export interface Paquete {
     nombre: string;
-    precioVenta: number;
-    flores: Flor[];
+    cantidad: number;
+    precioCompra: number;
+    precioLista: number;
 }
+
 export interface Cotizacion {
     descuento: number;
+    flete?: number;
     paquetes: Paquete[];
 }
 
 export interface PaqueteCalculado {
     nombre: string;
+    cantidad: number;
     costoPaquete: number;
-    precioVenta: number;
+    ventaPaquete: number;
     utilidad: number;
 }
 
 export interface ResultadoCotizacion {
-    subtotal: number;
+    costoTotal: number;
+    ventaBruta: number;
     descuento: number;
-    total: number;
+    ventaFinal: number;
+    flete: number;
     utilidadTotal: number;
     paquetes: PaqueteCalculado[];
 }

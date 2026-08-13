@@ -1,35 +1,92 @@
 import Flor from "../models/florModel";
 
-//se buscan todas las flores que se tengan
+
+// ======================================================
+// FLORES ACTIVAS
+// Se utilizan en el cotizador
+// ======================================================
+
 export const obtenerFlores = async () => {
-    return await Flor.find({ activo: true });
+
+    return await Flor
+        .find({ activo: true })
+        .sort({ nombre: 1 });
+
 };
 
-//sirve para agregar flores nuevas a la base de datos
+
+// ======================================================
+// CATÁLOGO COMPLETO
+// Incluye activas e inactivas
+// ======================================================
+
+export const obtenerCatalogoFlores = async () => {
+
+    return await Flor
+        .find()
+        .sort({ nombre: 1 });
+
+};
+
+
+// ======================================================
+// CREAR UNA FLOR NUEVA
+// ======================================================
+
 export const crearFlor = async (
     nombre: string,
-    costoUnitario: number
+    precio: number,
+    precioLista: number
 ) => {
+
     const nuevaFlor = new Flor({
         nombre,
-        costoUnitario
+        precio,
+        precioLista,
+        activo: true
     });
+
 
     return await nuevaFlor.save();
 };
 
-//si el precio cambia aqui se puede actualizar
+
+// ======================================================
+// ACTUALIZAR PRECIOS
+// ======================================================
+
 export const actualizarPrecioFlor = async (
     id: string,
-    costoUnitario: number
+    precio: number,
+    precioLista: number
 ) => {
+
     return await Flor.findByIdAndUpdate(
         id,
         {
-            costoUnitario
+            precio,
+            precioLista
         },
         {
-            new: true
+            new: true,
+            runValidators: true
+        }
+    );
+
+};
+export const actualizarEstadoFlor = async (
+    id: string,
+    activo: boolean
+) => {
+
+    return await Flor.findByIdAndUpdate(
+        id,
+        {
+            activo
+        },
+        {
+            new: true,
+            runValidators: true
         }
     );
 };

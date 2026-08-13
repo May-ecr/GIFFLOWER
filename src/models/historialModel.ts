@@ -1,14 +1,25 @@
 import mongoose, { Schema, Document } from "mongoose";
 import { PaqueteCalculado } from "./interfaces";
 
+
 export interface IHistorial extends Document {
     fecha: Date;
-    subtotal: number;
+
+    costoTotal: number;
+
+    ventaBruta: number;
+
     descuento: number;
-    total: number;
+
+    ventaFinal: number;
+
+    flete: number;
+
     utilidadTotal: number;
+
     paquetes: PaqueteCalculado[];
 }
+
 
 const historialSchema = new Schema<IHistorial>(
     {
@@ -17,25 +28,70 @@ const historialSchema = new Schema<IHistorial>(
             default: Date.now
         },
 
-        subtotal: {
+
+        // ==========================================
+        // COSTO TOTAL DE LA MERCANCÍA
+        // ==========================================
+
+        costoTotal: {
             type: Number,
             required: true
         },
+
+
+        // ==========================================
+        // TOTAL ANTES DEL DESCUENTO
+        // ==========================================
+
+        ventaBruta: {
+            type: Number,
+            required: true
+        },
+
+
+        // ==========================================
+        // CANTIDAD DESCONTADA AL CLIENTE
+        // ==========================================
 
         descuento: {
             type: Number,
             required: true
         },
 
-        total: {
+
+        // ==========================================
+        // LO QUE REALMENTE PAGA EL CLIENTE
+        // ==========================================
+
+        ventaFinal: {
             type: Number,
             required: true
         },
+
+
+        // ==========================================
+        // GASTO DE FLETE
+        // ==========================================
+
+        flete: {
+            type: Number,
+            required: true
+        },
+
+
+        // ==========================================
+        // GANANCIA FINAL
+        // ==========================================
 
         utilidadTotal: {
             type: Number,
             required: true
         },
+
+
+        // ==========================================
+        // PAQUETES / FLORES DE LA COTIZACIÓN
+        // ==========================================
 
         paquetes: [
             {
@@ -44,14 +100,25 @@ const historialSchema = new Schema<IHistorial>(
                     required: true
                 },
 
+
+                cantidad: {
+                    type: Number,
+                    required: true
+                },
+
+
                 costoPaquete: {
                     type: Number,
                     required: true
                 },
-                precioVenta: {
+
+
+                ventaPaquete: {
                     type: Number,
                     required: true
                 },
+
+
                 utilidad: {
                     type: Number,
                     required: true
@@ -64,8 +131,9 @@ const historialSchema = new Schema<IHistorial>(
     }
 );
 
+
 export default mongoose.model<IHistorial>(
     "Historial",
-    historialSchema, 
+    historialSchema,
     "historial"
 );

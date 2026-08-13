@@ -1,11 +1,20 @@
-//sirve para definir como se van a guardar las flores en la base de datos
+// Define cómo se guardan las flores en MongoDB
+
 import mongoose, { Schema, Document } from "mongoose";
+
 
 export interface IFlor extends Document {
     nombre: string;
-    costoUnitario: number;
+
+    // Precio que le cuesta a la florería
+    precio: number;
+
+    // Precio al que se vende
+    precioLista: number;
+
     activo: boolean;
 }
+
 
 const FlorSchema: Schema = new Schema(
     {
@@ -16,7 +25,13 @@ const FlorSchema: Schema = new Schema(
             trim: true
         },
 
-        costoUnitario: {
+        precio: {
+            type: Number,
+            required: true,
+            min: 0
+        },
+
+        precioLista: {
             type: Number,
             required: true,
             min: 0
@@ -32,4 +47,8 @@ const FlorSchema: Schema = new Schema(
     }
 );
 
-export default mongoose.model<IFlor>("Flor", FlorSchema);
+
+export default mongoose.model<IFlor>(
+    "Flor",
+    FlorSchema
+);

@@ -1,205 +1,1154 @@
-/* Variables de Color (Rosa y Blanco) */
+/* =====================================================
+   VARIABLES
+===================================================== */
+
 :root {
-    --bg-color: #fff0f5;           /* Lavender Blush / Rosa muy clarito */
-    --card-bg: #ffffff;            /* Blanco puro */
-    --primary-pink: #f472b6;       /* Rosa suave */
-    --primary-pink-hover: #db2777; /* Rosa intenso para hover */
-    --secondary-pink: #fbcfe8;     /* Rosa muy pastel */
-    --secondary-pink-hover: #f472b6;
-    --text-color: #4a4a4a;         /* Gris oscuro legibilidad */
-    --border-color: #fce7f3;
-    --shadow: 0 10px 25px -5px rgba(244, 114, 182, 0.15);
+    --bg-color: #fff1f6;
+    --card-bg: #ffffff;
+
+    --primary-pink: #ef67ad;
+    --primary-pink-hover: #db2777;
+
+    --secondary-pink: #fce0ee;
+    --secondary-pink-hover: #f8bad9;
+
+    --title-color: #be185d;
+    --text-color: #3f3f46;
+    --muted-text: #71717a;
+
+    --border-color: #f5d5e5;
+    --input-bg: #ffffff;
+
+    --success: #07864b;
+
+    --shadow:
+        0 14px 35px rgba(190, 24, 93, 0.08);
 }
+
+
+/* =====================================================
+   GENERAL
+===================================================== */
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
 }
+
 
 body {
-    background-color: var(--bg-color);
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff7fa 0%,
+            var(--bg-color) 100%
+        );
+
     color: var(--text-color);
-    padding-bottom: 40px;
+
+    padding-bottom: 60px;
 }
 
-/* Header */
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
 .navbar {
-    background-color: var(--card-bg);
+    background: rgba(255, 255, 255, 0.95);
+
     padding: 20px 40px;
+
     text-align: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-    border-bottom: 2px solid var(--border-color);
+
+    border-bottom: 1px solid var(--border-color);
+
+    box-shadow:
+        0 2px 12px rgba(190, 24, 93, 0.04);
 }
+
 
 .logo {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 10px;
 }
 
+
 .logo h1 {
-    color: #be185d;
-    font-size: 1.8rem;
+    color: var(--title-color);
+
+    font-size: 1.85rem;
+    font-weight: 750;
 }
+
 
 .icon {
     font-size: 2rem;
 }
 
+
 .tagline {
-    font-size: 0.9rem;
-    color: #9d174d;
     margin-top: 4px;
+
+    color: #9d174d;
+
+    font-size: 0.92rem;
 }
 
-/* Contenedor Principal */
+
+/* =====================================================
+   CONTENEDOR
+===================================================== */
+
 .container {
-    max-width: 700px;
-    margin: 30px auto;
-    padding: 0 20px;
+    width: min(94%, 980px);
+
+    margin: 38px auto;
+
+    padding: 0;
 }
 
-/* Tarjetas */
+
+/* =====================================================
+   TARJETAS
+===================================================== */
+
 .card {
+    width: 100%;
+
     background: var(--card-bg);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
+
+    padding: 36px 40px;
+
+    margin-bottom: 32px;
+
     border: 1px solid var(--border-color);
-    margin-bottom: 25px;
+    border-radius: 24px;
+
+    box-shadow: var(--shadow);
 }
+
 
 .card h2 {
-    color: #be185d;
-    font-size: 1.3rem;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+
+    color: var(--title-color);
+
+    font-size: 1.45rem;
+    font-weight: 750;
 }
+
 
 .card h3 {
-    color: #db2777;
-    font-size: 1.1rem;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+
+    color: #d51f72;
+
+    font-size: 1.15rem;
 }
+
 
 .card h4 {
+    margin: 18px 0 10px;
+
+    color: #52525b;
+
     font-size: 0.95rem;
-    color: #666;
-    margin: 15px 0 10px;
 }
 
-/* Formulario e Inputs */
+
+.section-description {
+    margin: 6px 0 20px;
+
+    color: var(--muted-text);
+
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+
+.divider {
+    width: 100%;
+    height: 1px;
+
+    margin: 26px 0;
+
+    background: var(--border-color);
+}
+
+
+/* =====================================================
+   FORMULARIO
+===================================================== */
+
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+
+    min-width: 0;
 }
+
 
 .form-group label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-bottom: 5px;
-    color: #831843;
+    margin-bottom: 7px;
+
+    color: #9d174d;
+
+    font-size: 0.9rem;
+    font-weight: 650;
+
+    line-height: 1.25;
 }
 
-input, select {
-    padding: 11px 10px;
+
+input,
+select {
+    width: 100%;
+    height: 54px;
+
+    padding: 0 14px;
+
     border: 2px solid var(--border-color);
-    border-radius: 10px;
-    font-size: 0.95rem;
+    border-radius: 13px;
+
+    background: var(--input-bg);
+
+    color: #27272a;
+
+    font-size: 0.98rem;
+
     outline: none;
-    transition: all 0.3s ease;
-    background-color: white;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
 }
 
-input:focus, select:focus {
+
+input:hover,
+select:hover {
+    border-color: #f4bad7;
+}
+
+
+input:focus,
+select:focus {
     border-color: var(--primary-pink);
-    box-shadow: 0 0 0 3px rgba(244, 114, 182, 0.2);
+
+    box-shadow:
+        0 0 0 4px rgba(244, 114, 182, 0.13);
 }
 
-.form-row {
-    display: flex;
-    gap: 12px;
-    margin-bottom: 10px;
+
+input[readonly] {
+    background: #fffafd;
+
+    color: #52525b;
+
+    cursor: default;
 }
 
-.form-row .form-group,
-.form-row input, .form-row select {
-    flex: 1;
-}
 
-.divider {
-    height: 1px;
-    background-color: var(--border-color);
-    margin: 20px 0;
-}
+/* Descuento de arriba */
 
-/* Botones con Efectos Hover */
-button {
-    cursor: pointer;
-    border: none;
-    border-radius: 12px;
+#descuento {
     font-weight: 600;
-    transition: all 0.3s ease;
 }
+
+
+/* =====================================================
+   CONTENEDOR DE PAQUETES / FLORES
+===================================================== */
+
+#paquetes-container {
+    display: flex;
+    flex-direction: column;
+
+    gap: 14px;
+
+    width: 100%;
+
+    margin-top: 16px;
+}
+
+
+/* =====================================================
+   CADA FILA
+===================================================== */
+
+.paquete-item.form-row {
+    display: grid !important;
+
+    /*
+       Flor | Cantidad | Compra | Lista | Eliminar
+    */
+    grid-template-columns:
+        minmax(180px, 1.35fr)
+        minmax(105px, 0.65fr)
+        minmax(165px, 1fr)
+        minmax(165px, 1fr)
+        42px;
+
+    gap: 14px;
+
+    align-items: end;
+
+    width: 100%;
+
+    padding: 16px;
+
+    margin: 0;
+
+    background: #fffafd;
+
+    border: 1px solid #f9dceb;
+    border-radius: 16px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.paquete-item.form-row:hover {
+    border-color: #f5bfdc;
+
+    box-shadow:
+        0 5px 18px rgba(244, 114, 182, 0.08);
+}
+
+
+.paquete-item .form-group {
+    width: 100%;
+    min-width: 0;
+
+    margin: 0;
+}
+
+
+.paquete-item input,
+.paquete-item select {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+}
+
+
+/* =====================================================
+   BOTÓN X
+===================================================== */
+
+.paquete-actions {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    height: 54px;
+}
+
+
+.btn-eliminar-paquete {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    padding: 0;
+    margin: 0;
+
+    border: none !important;
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #be185d;
+
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.btn-eliminar-paquete:hover:not(:disabled) {
+    background: #ffe4ee;
+
+    color: #e11d48;
+
+    transform: scale(1.06);
+}
+
+
+/*
+   Si solo existe una fila, escondemos la X.
+   Se ve mucho más limpio que dejarla gris.
+*/
+.btn-eliminar-paquete:disabled {
+    visibility: hidden;
+}
+
+
+/* =====================================================
+   BOTONES
+===================================================== */
+
+button {
+    font-family: inherit;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
 
 .btn-primary {
-    background-color: var(--primary-pink);
-    color: white;
-    padding: 14px 20px;
-    font-size: 1rem;
     width: 100%;
-    margin-top: 15px;
+
+    padding: 15px 22px;
+
+    border: none !important;
+    border-radius: 13px;
+
+    background: var(--primary-pink);
+
+    color: white;
+
+    font-size: 1rem;
+    font-weight: 700;
+
+    box-shadow:
+        0 5px 14px rgba(239, 103, 173, 0.18);
 }
+
 
 .btn-primary:hover {
-    background-color: var(--primary-pink-hover);
-    transform: translateY(-2px);
+    background: var(--primary-pink-hover);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 18px rgba(219, 39, 119, 0.2);
 }
+
 
 .btn-secondary {
-    background-color: var(--secondary-pink);
-    color: #9d174d;
-    padding: 10px 16px;
-    font-size: 0.85rem;
+    padding: 11px 18px;
+
+    border: none !important;
+    border-radius: 12px;
+
+    background: var(--secondary-pink);
+
+    color: #a41552;
+
+    font-size: 0.9rem;
+    font-weight: 650;
 }
+
 
 .btn-secondary:hover {
-    background-color: var(--secondary-pink-hover);
-    color: white;
+    background: var(--secondary-pink-hover);
+
+    color: #831843;
+
+    transform: translateY(-1px);
 }
 
-/* Tarjeta de Resultados */
-.result-card {
-    background: #fdf2f8;
-    border: 2px dashed var(--primary-pink);
+
+#btn-add-paquete {
+    margin-top: 18px;
 }
+
+
+/* Botón calcular */
+
+.form-actions {
+    margin-top: 22px;
+}
+
+
+/* =====================================================
+   RESUMEN
+===================================================== */
+
+.result-card {
+    background: #ffffff;
+
+    border: 1px solid #f4bfd9;
+
+    box-shadow:
+        0 14px 35px rgba(190, 24, 93, 0.08);
+}
+
+
+.result-card h2 {
+    padding-bottom: 16px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid var(--border-color);
+}
+
 
 .summary-details {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+
+    gap: 0;
 }
+
 
 .detail-item {
     display: flex;
+
+    align-items: center;
     justify-content: space-between;
+
+    min-height: 46px;
+
+    padding: 8px 4px;
+
     font-size: 1rem;
+
+    border-bottom: 1px solid #fdf0f6;
 }
+
+
+.detail-item span {
+    color: #52525b;
+}
+
+
+.detail-item strong {
+    color: #27272a;
+
+    font-size: 1.02rem;
+}
+
 
 .detail-item.total {
-    font-size: 1.2rem;
-    color: #be185d;
+    margin-top: 6px;
+
+    padding-top: 16px;
+    padding-bottom: 16px;
+
     border-top: 1px solid var(--border-color);
-    padding-top: 10px;
+    border-bottom: 1px solid var(--border-color);
+
+    font-size: 1.18rem;
 }
+
+
+.detail-item.total span,
+.detail-item.total strong {
+    color: var(--title-color);
+}
+
+
+.detail-item.total strong {
+    font-size: 1.35rem;
+}
+
 
 .detail-item.profit {
-    color: #047857;
+    margin-top: 5px;
+
+    font-size: 1.08rem;
 }
 
+
+.detail-item.profit span,
+.detail-item.profit strong {
+    color: var(--success);
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   BOTONES DEL RESULTADO
+===================================================== */
+
+.result-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 24px;
+}
+
+
+.result-actions .btn-primary {
+    flex: 1;
+
+    width: auto;
+
+    margin: 0;
+}
+
+
+.result-actions .btn-secondary {
+    flex-shrink: 0;
+
+    margin: 0;
+
+    padding: 15px 20px;
+}
+
+
+/* =====================================================
+   OCULTO
+===================================================== */
+
 .hidden {
-    display: none;
+    display: none !important;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 850px) {
+
+    .container {
+        width: min(94%, 720px);
+    }
+
+
+    .card {
+        padding: 28px;
+    }
+
+
+    .paquete-item.form-row {
+        grid-template-columns:
+            1.25fr
+            0.75fr;
+
+        gap: 14px;
+    }
+
+
+    .paquete-actions {
+        justify-content: flex-start;
+
+        height: auto;
+    }
+
+
+    .btn-eliminar-paquete:disabled {
+        display: none;
+    }
+}
+
+
+@media (max-width: 560px) {
+
+    .navbar {
+        padding: 17px 15px;
+    }
+
+
+    .logo h1 {
+        font-size: 1.5rem;
+    }
+
+
+    .container {
+        width: 94%;
+
+        margin-top: 22px;
+    }
+
+
+    .card {
+        padding: 22px 18px;
+
+        border-radius: 18px;
+    }
+
+
+    .paquete-item.form-row {
+        grid-template-columns: 1fr;
+
+        padding: 14px;
+    }
+
+
+    .paquete-actions {
+        justify-content: flex-end;
+    }
+
+
+    .result-actions {
+        flex-direction: column;
+    }
+
+
+    .result-actions .btn-primary,
+    .result-actions .btn-secondary {
+        width: 100%;
+    }
+}
+
+/* =====================================================
+   BOTÓN CATÁLOGO
+===================================================== */
+
+.navbar-actions {
+    margin-top: 14px;
+}
+
+
+.btn-catalogo {
+    padding: 10px 18px;
+
+    border: 1px solid #f4bfd9;
+    border-radius: 12px;
+
+    background: #fff5fa;
+
+    color: #be185d;
+
+    font-size: 0.9rem;
+    font-weight: 650;
+
+    cursor: pointer;
+}
+
+
+.btn-catalogo:hover {
+    background: #fce0ee;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   MODALES
+===================================================== */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 1000;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+}
+
+
+.modal-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(55, 20, 38, 0.35);
+
+    backdrop-filter: blur(3px);
+}
+
+
+.modal-content {
+    position: relative;
+
+    z-index: 1001;
+
+    width: min(95%, 850px);
+
+    max-height: 88vh;
+
+    overflow-y: auto;
+
+    padding: 30px;
+
+    border: 1px solid var(--border-color);
+    border-radius: 22px;
+
+    background: white;
+
+    box-shadow:
+        0 25px 60px rgba(80, 20, 50, 0.18);
+}
+
+
+.editar-modal-content {
+    width: min(95%, 500px);
+}
+
+
+.modal-header {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 22px;
+
+    border-bottom: 1px solid var(--border-color);
+}
+
+
+.modal-header h2 {
+    margin: 0 0 5px;
+
+    color: var(--title-color);
+}
+
+
+.modal-header p {
+    color: var(--muted-text);
+
+    font-size: 0.92rem;
+}
+
+
+.modal-close {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #fff1f6;
+
+    color: #be185d;
+
+    font-size: 20px;
+
+    cursor: pointer;
+}
+
+
+.modal-close:hover {
+    background: #fbcfe8;
+}
+
+
+/* =====================================================
+   TABLA CATÁLOGO
+===================================================== */
+
+.catalogo-table-container {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.catalogo-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+}
+
+
+.catalogo-table th {
+    padding: 13px 12px;
+
+    text-align: left;
+
+    color: #9d174d;
+
+    font-size: 0.85rem;
+
+    border-bottom: 2px solid var(--border-color);
+}
+
+
+.catalogo-table td {
+    padding: 15px 12px;
+
+    border-bottom: 1px solid #fcebf3;
+
+    vertical-align: middle;
+}
+
+
+.catalogo-table tbody tr:hover {
+    background: #fff9fc;
+}
+
+
+.catalogo-nombre {
+    font-weight: 650;
+
+    color: #3f3f46;
+}
+
+
+.catalogo-precio {
+    font-weight: 650;
+}
+
+
+.estado-activo {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    background: #ecfdf5;
+
+    color: #047857;
+
+    font-size: 0.8rem;
+    font-weight: 650;
+}
+
+
+.estado-inactivo {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 5px 10px;
+
+    border-radius: 999px;
+
+    background: #f4f4f5;
+
+    color: #71717a;
+
+    font-size: 0.8rem;
+}
+
+
+.btn-editar-flor {
+    padding: 8px 13px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #fce0ee;
+
+    color: #a41552;
+
+    font-size: 0.84rem;
+    font-weight: 650;
+
+    cursor: pointer;
+}
+
+
+.btn-editar-flor:hover {
+    background: #f8bad9;
+}
+
+
+/* =====================================================
+   EDITAR
+===================================================== */
+
+.modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 22px;
+}
+
+
+.modal-actions .btn-primary {
+    width: auto;
+
+    margin: 0;
+}
+
+
+.modal-actions .btn-secondary {
+    margin: 0;
+}
+
+
+.catalogo-cargando {
+    padding: 25px;
+
+    text-align: center;
+
+    color: var(--muted-text);
+}
+
+
+/* =====================================================
+   RESPONSIVE CATÁLOGO
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .modal {
+        padding: 12px;
+    }
+
+
+    .modal-content {
+        padding: 22px 17px;
+    }
+
+
+    .modal-actions {
+        flex-direction: column-reverse;
+    }
+
+
+    .modal-actions .btn-primary,
+    .modal-actions .btn-secondary {
+        width: 100%;
+    }
+
+}
+/* =====================================================
+   ACCIONES DEL CATÁLOGO
+===================================================== */
+
+.catalogo-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.catalogo-table td:last-child {
+    white-space: nowrap;
+}
+
+
+.catalogo-acciones {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+
+/* EDITAR */
+
+.btn-editar-flor {
+    padding: 8px 12px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #fce0ee;
+
+    color: #a41552;
+
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+
+.btn-editar-flor:hover {
+    background: #f8bad9;
+}
+
+
+/* DESACTIVAR */
+
+.btn-desactivar-flor {
+    padding: 8px 12px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #fff1f2;
+
+    color: #be123c;
+
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+
+.btn-desactivar-flor:hover {
+    background: #ffe4e6;
+}
+
+
+/* REACTIVAR */
+
+.btn-reactivar-flor {
+    padding: 8px 12px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #ecfdf5;
+
+    color: #047857;
+
+    font-size: 0.82rem;
+    font-weight: 650;
+}
+
+
+.btn-reactivar-flor:hover {
+    background: #d1fae5;
+}
+
+
+@media (max-width: 600px) {
+
+    .catalogo-header-actions {
+        flex-direction: column-reverse;
+        align-items: flex-end;
+    }
+
 }
