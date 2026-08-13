@@ -31,6 +31,10 @@
         >
             🌺 Catálogo de flores
         </button>
+
+        <button type="button" id="btn-historial" class="btn-secondary">
+            📋 Historial de cotizaciones
+        </button>
 </div>
 
 </header>
@@ -49,6 +53,19 @@
 
         <form id="cotizador-form">
 
+            <div class="form-group">
+                <label for="clienteNombre">
+                    Nombre del cliente
+                </label>
+
+                <input
+                    type="text"
+                    id="clienteNombre"
+                    placeholder="Ej: Juan Pérez"
+                    required
+                >
+            </div>
+
             <!-- DESCUENTO -->
 
             <div class="form-group">
@@ -62,7 +79,7 @@
                     id="descuento"
                     value="0"
                     min="0"
-                    max="100"
+                    max="35"
                     step="0.01"
                     required
                 >
@@ -570,9 +587,92 @@
 
 </div>
 
+<div id="historial-modal" class="modal hidden">
 
+
+    <div
+        class="modal-overlay"
+        id="historial-overlay"
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+               
+            <div>
+                <h2>📋 Historial de Cotizaciones</h2>
+
+                <p>
+                    Consulta las cotizaciones guardadas.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="btn-cerrar-historial"
+                class="modal-close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+         <div class="form-group">
+                    <input
+                        type="text"
+                        id="buscar-cliente"
+                        placeholder="🔍 Buscar cliente..."
+                    >
+                </div>
+
+        <div id="historial-container">
+            <!-- Aquí se mostrarán las cotizaciones -->
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="detalle-cotizacion-modal" class="modal hidden">
+
+    <div
+        class="modal-overlay"
+        id="detalle-cotizacion-overlay"
+    ></div>
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>🧾 Detalle de Cotización</h2>
+
+                <p id="detalle-cliente">
+                    Cliente
+                </p>
+            </div>
+
+            <button
+                type="button"
+                id="btn-cerrar-detalle-cotizacion"
+                class="modal-close"
+            >
+                ✕
+            </button>
+
+        </div>
+
+        <div id="detalle-cotizacion-contenido">
+            <!-- Aquí se mostrará la cotización -->
+        </div>
+
+    </div>
+
+</div>
 <script src="app.js"></script>
-<script src="app.js"></script>
+
 
 </body>
 </html>

@@ -3,6 +3,8 @@ import { PaqueteCalculado } from "./interfaces";
 
 
 export interface IHistorial extends Document {
+    cliente: string;
+    
     fecha: Date;
 
     costoTotal: number;
@@ -23,6 +25,12 @@ export interface IHistorial extends Document {
 
 const historialSchema = new Schema<IHistorial>(
     {
+        cliente:{
+            type: String,
+            required: true,
+            trim: true
+        },
+        
         fecha: {
             type: Date,
             default: Date.now

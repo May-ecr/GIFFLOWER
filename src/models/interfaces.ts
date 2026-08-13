@@ -6,6 +6,7 @@ export interface Paquete {
 }
 
 export interface Cotizacion {
+    cliente: string;
     descuento: number;
     flete?: number;
     paquetes: Paquete[];
@@ -20,6 +21,7 @@ export interface PaqueteCalculado {
 }
 
 export interface ResultadoCotizacion {
+    cliente: string;
     costoTotal: number;
     ventaBruta: number;
     descuento: number;

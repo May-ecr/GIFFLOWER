@@ -5,6 +5,9 @@
 let ultimaCotizacion = null;
 let floresDisponibles = [];
 
+let historialCompleto = [];
+
+
 // ======================================================
 // ELEMENTOS PRINCIPALES
 // ======================================================
@@ -258,10 +261,12 @@ formulario.addEventListener('submit', async (event) => {
     }));
 
     const payload = {
+
+        cliente:
+            document.getElementById('clienteNombre').value,
+
         descuento:
-            Number(
-                document.getElementById('descuento').value
-            ) || 0,
+            Number(document.getElementById('descuento').value) || 0,
 
         paquetes
     };
@@ -987,7 +992,350 @@ document.addEventListener('keydown', (event) => {
     cerrarCatalogo();
 });
 
+document.getElementById('btn-historial').addEventListener('click', async () => {
 
+    const historialModal =
+        document.getElementById('historial-modal');
+
+    const historialContainer =
+        document.getElementById('historial-container');
+
+    try {
+        const response = await fetch(
+            'http://localhost:3000/historial'
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                'No se pudo obtener el historial'
+            );
+        }
+
+        historialCompleto = await response.json();
+
+        const historial = historialCompleto;
+
+        historialContainer.innerHTML = '';
+
+        if (historial.length === 0) {
+            historialContainer.innerHTML =
+                '<p>No hay cotizaciones guardadas.</p>';
+
+            historialModal.classList.remove('hidden');
+
+            return;
+        }
+
+        historial.forEach(cotizacion => {
+
+            const card =
+                document.createElement('div');
+
+            card.className = 'historial-item';
+
+            const fecha = new Date(
+                cotizacion.fecha
+            ).toLocaleDateString();
+
+            const nombreCliente =
+    cotizacion.cliente || 'Cliente no registrado';
+
+const ventaFinal =
+    Number(cotizacion.ventaFinal || 0);
+
+const utilidadTotal =
+    Number(cotizacion.utilidadTotal || 0);
+
+card.innerHTML = `
+            <h3>${nombreCliente}</h3>
+
+            <p>
+                Fecha: ${fecha}
+            </p>
+
+            <p>
+                Total: $${ventaFinal.toFixed(2)}
+            </p>
+
+            <p>
+                Utilidad: $${utilidadTotal.toFixed(2)}
+            </p>
+
+            <button
+                type="button"
+                class="btn-secondary btn-ver-cotizacion"
+                data-id="${cotizacion._id}"
+            >
+                Ver cotización
+            </button>
+        `;
+
+            historialContainer.appendChild(card);
+        });
+
+        historialModal.classList.remove('hidden');
+
+        
+    } catch (error) {
+
+        console.error(
+            'Error al cargar historial:',
+            error
+        );
+
+        alert(
+            'No se pudo cargar el historial de cotizaciones.'
+        );
+    }
+});
+
+document
+    .getElementById('btn-cerrar-historial')
+    .addEventListener('click', () => {
+
+        document
+            .getElementById('historial-modal')
+            .classList.add('hidden');
+
+    });
+
+
+document
+    .getElementById('historial-overlay')
+    .addEventListener('click', () => {
+
+        document
+            .getElementById('historial-modal')
+            .classList.add('hidden');
+
+    });
+
+document
+    .getElementById('historial-container')
+    .addEventListener('click', async (event) => {
+
+        const boton =
+            event.target.closest('.btn-ver-cotizacion');
+
+        if (!boton) {
+            return;
+        }
+
+        const id = boton.dataset.id;
+
+        try {
+            const response = await fetch(
+                `http://localhost:3000/historial/${id}`
+            );
+
+            if (!response.ok) {
+                throw new Error(
+                    'No se pudo obtener la cotización'
+                );
+            }
+
+            const cotizacion = await response.json();
+
+            mostrarDetalleCotizacion(cotizacion);
+
+        } catch (error) {
+
+            console.error(
+                'Error al obtener cotización:',
+                error
+            );
+
+            alert(
+                'No se pudo cargar el detalle de la cotización.'
+            );
+        }
+    });
+
+
+function mostrarDetalleCotizacion(cotizacion) {
+
+    const modal =
+        document.getElementById(
+            'detalle-cotizacion-modal'
+        );
+
+    const contenido =
+        document.getElementById(
+            'detalle-cotizacion-contenido'
+        );
+
+    const cliente =
+        cotizacion.cliente ||
+        'Cliente no registrado';
+
+    const fecha =
+        new Date(
+            cotizacion.fecha
+        ).toLocaleDateString();
+
+    document.getElementById(
+        'detalle-cliente'
+    ).textContent = cliente;
+
+
+    const paquetesHTML =
+        (cotizacion.paquetes || [])
+            .map(paquete => `
+
+                <div class="historial-item">
+
+                    <h3>
+                        ${paquete.nombre}
+                    </h3>
+
+                    <p>
+                        Cantidad:
+                        ${paquete.cantidad || 0}
+                    </p>
+
+                    <p>
+                        Costo:
+                        $${Number(
+                            paquete.costoPaquete || 0
+                        ).toFixed(2)}
+                    </p>
+
+                    <p>
+                        Venta:
+                        $${Number(
+                            paquete.ventaPaquete || 0
+                        ).toFixed(2)}
+                    </p>
+
+                    <p>
+                        Utilidad:
+                        $${Number(
+                            paquete.utilidad || 0
+                        ).toFixed(2)}
+                    </p>
+
+                </div>
+
+            `)
+            .join('');
+
+
+    contenido.innerHTML = `
+
+        <p>
+            <strong>Fecha:</strong>
+            ${fecha}
+        </p>
+
+        <p>
+            <strong>Costo de mercancía:</strong>
+            $${Number(
+                cotizacion.costoTotal || 0
+            ).toFixed(2)}
+        </p>
+
+        <p>
+            <strong>Venta antes de descuento:</strong>
+            $${Number(
+                cotizacion.ventaBruta || 0
+            ).toFixed(2)}
+        </p>
+
+        <p>
+            <strong>Descuento:</strong>
+            $${Number(
+                cotizacion.descuento || 0
+            ).toFixed(2)}
+        </p>
+
+        <p>
+            <strong>Total pagado:</strong>
+            $${Number(
+                cotizacion.ventaFinal || 0
+            ).toFixed(2)}
+        </p>
+
+        <p>
+            <strong>Flete:</strong>
+            $${Number(
+                cotizacion.flete || 0
+            ).toFixed(2)}
+        </p>
+
+        <p>
+            <strong>Utilidad:</strong>
+            $${Number(
+                cotizacion.utilidadTotal || 0
+            ).toFixed(2)}
+        </p>
+
+        <div class="divider"></div>
+
+        <h3>📦 Paquetes</h3>
+
+        ${paquetesHTML}
+    `;
+
+    modal.classList.remove('hidden');
+}
+
+
+document
+    .getElementById(
+        'btn-cerrar-detalle-cotizacion'
+    )
+    .addEventListener('click', () => {
+
+        document
+            .getElementById(
+                'detalle-cotizacion-modal'
+            )
+            .classList.add('hidden');
+
+    });
+
+
+document
+    .getElementById(
+        'detalle-cotizacion-overlay'
+    )
+    .addEventListener('click', () => {
+
+        document
+            .getElementById(
+                'detalle-cotizacion-modal'
+            )
+            .classList.add('hidden');
+
+    });
+document
+    .getElementById('buscar-cliente')
+    .addEventListener('input', (event) => {
+
+        const texto =
+            event.target.value
+                .toLowerCase()
+                .trim();
+
+        const tarjetas =
+            document.querySelectorAll('.historial-item');
+
+        tarjetas.forEach((tarjeta) => {
+
+            const nombre =
+                tarjeta
+                    .querySelector('h3')
+                    .textContent
+                    .toLowerCase();
+
+            if (nombre.includes(texto)) {
+                tarjeta.style.display = '';
+            } else {
+                tarjeta.style.display = 'none';
+            }
+
+        });
+    });
 // ======================================================
 // INICIAR APLICACIÓN
 // ======================================================
